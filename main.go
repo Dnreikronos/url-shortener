@@ -21,3 +21,14 @@ var (
 		}
 		return
 	}
+	fmt.Println("Usage:")
+	flag.PrintDefaults()
+	os.Exit(1)
+}
+func expandURL(shortenedURL string) string {
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	return urlStore[shortenedURL]
+
+}
