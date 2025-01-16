@@ -36,3 +36,14 @@ func SaveURL(shortKey, originalURL string) {
 	db.Create(&urlMapping)
 }
 
+func GetOriginalURL(shortKey string) string {
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	var urlMapping URLMapping
+	result := db.First(&urlMapping, "short_key = ?", shortKey)
+	if result.Error != nil {
+		return ""
+	}
+	return urlMapping.OriginalURL
+}
