@@ -18,7 +18,8 @@ var (
 	db    *gorm.DB
 	mutex = &sync.Mutex{}
 )
-func InitializDatabase() {
+
+func InitializeDatabase() {
 	var err error
 	db, err := gorm.Open(sqlite.Open("urls.db"), &gorm.Config{})
 	if err != nil {
