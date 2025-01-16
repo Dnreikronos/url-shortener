@@ -42,27 +42,3 @@ func main() {
 	os.Exit(1)
 }
 
-func expandURL(shortenedURL string) string {
-	mutex.Lock()
-	defer mutex.Unlock()
-
-	return urlStore[shortenedURL]
-
-}
-
-func shortenURL(url string) string {
-	mutex.Lock()
-	defer mutex.Unlock()
-
-	hash := hashURL(url)
-	shortKey := fmt.Sprintf("%d", hash)
-
-	urlStore[shortKey] = url
-	return shortKey
-}
-
-func hashURL(url string) uint32 {
-	h := fnv.New32a()
-	h.Write([]byte(url))
-	return h.Sum32()
-}
