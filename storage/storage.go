@@ -13,3 +13,8 @@ type URLMapping struct {
 	ShortKey    string `gorm:"uniqueIndex"`
 	OriginalURL string
 }
+
+var (
+	db    *gorm.DB
+	mutex = &sync.Mutex{}
+)
