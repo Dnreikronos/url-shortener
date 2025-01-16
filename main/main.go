@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"hash/fnv"
 	"os"
 	"sync"
+	"github.com/Dnreikronos/url-shortener/shortener"
 )
 
 var (
@@ -21,13 +21,13 @@ func main() {
 	flag.Parse()
 
 	if *shorten != "" {
-		shortenedURL := shortenURL(*shorten)
+		shortenedURL := shortener.ShortenURL(*shorten)
 		fmt.Println("Shortened URL:", shortenedURL)
 		return
 	}
 
 	if *expand != "" {
-		originalURL := expandURL(*expand)
+		originalURL := shortener.ExpandURL(*expand)
 		if originalURL != "" {
 
 			fmt.Printf("Original URL:", originalURL)
