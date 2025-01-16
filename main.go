@@ -6,3 +6,8 @@ var (
 	expand := flag.String("Expand", "", "Shortened URL to Expand")
 
 	flag.Parse()
+	if *shorten != "" {
+		shortenedURL := shortenURL(*shorten)
+		fmt.Println("Shortened URL:", shortenedURL)
+		return
+	}
