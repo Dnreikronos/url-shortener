@@ -27,3 +27,12 @@ func InitializeDatabase() {
 	}
 	db.AutoMigrate(&URLMapping{})
 }
+
+func SaveURL(shortKey, originalURL string) {
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	urlMapping := URLMapping{ShortKey: shortKey, OriginalURL: originalURL}
+	db.Create(&urlMapping)
+}
+
