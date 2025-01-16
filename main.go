@@ -11,3 +11,13 @@ var (
 		fmt.Println("Shortened URL:", shortenedURL)
 		return
 	}
+	if *expand != "" {
+		originalURL := expandURL(*expand)
+		if originalURL != "" {
+
+			fmt.Printf("Original URL:", originalURL)
+		} else {
+			fmt.Println("Shortened URL not foud")
+		}
+		return
+	}
