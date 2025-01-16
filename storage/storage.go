@@ -24,4 +24,5 @@ func InitializDatabase() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database: %v", err)
 	}
+	db.AutoMigrate(&URLMapping{})
 }
