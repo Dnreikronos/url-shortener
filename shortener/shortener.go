@@ -3,7 +3,8 @@ package shortener
 import (
 	"fmt"
 	"hash/fnv"
-	"url-shortener-cli/storage"
+
+	"github.com/Dnreikronos/url-shortener/storage"
 )
 
 func ShortenURL(url string) string {
