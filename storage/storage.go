@@ -27,13 +27,13 @@ var (
 	mutex = &sync.Mutex{}
 )
 
-func InitializeDatabase() {
-	var err error
+func NewGormStorage() (*GormStorage, error) {
 	db, err := gorm.Open(sqlite.Open("urls.db"), &gorm.Config{})
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+		return nil, err
 	}
 	db.AutoMigrate(&URLMapping{})
+	return &GormStorage{db: db}, nil
 }
 
 func SaveURL(shortKey, originalURL string) {
