@@ -1,7 +1,6 @@
 package storage
 
 import (
-	"log"
 	"sync"
 
 	"gorm.io/driver/sqlite"
