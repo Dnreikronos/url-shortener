@@ -36,12 +36,10 @@ func NewGormStorage() (*GormStorage, error) {
 	return &GormStorage{db: db}, nil
 }
 
-func SaveURL(shortKey, originalURL string) {
-	mutex.Lock()
-	defer mutex.Unlock()
-
+func (s *GormStorage) SaveURL(shortKey, originalURL string) error {
 	urlMapping := URLMapping{ShortKey: shortKey, OriginalURL: originalURL}
-	db.Create(&urlMapping)
+	result := s.db.Create(&urlMapping)
+	return result.Error
 }
 
 func GetOriginalURL(shortKey string) string {
