@@ -8,6 +8,11 @@ import (
 	"gorm.io/gorm"
 )
 
+type Storage interface {
+	SaveURL(shortKey, OiriginalKey string)error
+	GetOriginalURL(shortKey string) (string, error)
+}
+
 type URLMapping struct {
 	id          uint   `gorm:"primaryKey"`
 	ShortKey    string `gorm:"uniqueIndex"`
