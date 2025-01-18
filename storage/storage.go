@@ -8,7 +8,7 @@ import (
 )
 
 type Storage interface {
-	SaveURL(shortKey, OiriginalKey string)error
+	SaveURL(shortKey, OiriginalKey string) error
 	GetOriginalURL(shortKey string) (string, error)
 }
 
