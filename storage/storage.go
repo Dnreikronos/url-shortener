@@ -12,6 +12,10 @@ type Storage interface {
 	GetOriginalURL(shortKey string) (string, error)
 }
 
+type GormStorage struct {
+	db *gorm.DB
+}
+
 type URLMapping struct {
 	id          uint   `gorm:"primaryKey"`
 	ShortKey    string `gorm:"uniqueIndex"`
