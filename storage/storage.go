@@ -17,7 +17,7 @@ type GormStorage struct {
 }
 
 type URLMapping struct {
-	id          uint   `gorm:"primaryKey"`
+	ID          uint   `gorm:"primaryKey"`
 	ShortKey    string `gorm:"uniqueIndex"`
 	OriginalURL string
 }
