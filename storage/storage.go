@@ -1,15 +1,23 @@
 package storage
 
 import (
-	"log"
 	"sync"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
+type Storage interface {
+	SaveURL(shortKey, OiriginalKey string) error
+	GetOriginalURL(shortKey string) (string, error)
+}
+
+type GormStorage struct {
+	db *gorm.DB
+}
+
 type URLMapping struct {
-	id          uint   `gorm:"primaryKey"`
+	ID          uint   `gorm:"primaryKey"`
 	ShortKey    string `gorm:"uniqueIndex"`
 	OriginalURL string
 }
@@ -19,31 +27,26 @@ var (
 	mutex = &sync.Mutex{}
 )
 
-func InitializeDatabase() {
-	var err error
+func NewGormStorage() (*GormStorage, error) {
 	db, err := gorm.Open(sqlite.Open("urls.db"), &gorm.Config{})
 	if err != nil {
-		log.Fatalf("Failed to connect to database: %v", err)
+		return nil, err
 	}
 	db.AutoMigrate(&URLMapping{})
+	return &GormStorage{db: db}, nil
 }
 
-func SaveURL(shortKey, originalURL string) {
-	mutex.Lock()
-	defer mutex.Unlock()
-
+func (s *GormStorage) SaveURL(shortKey, originalURL string) error {
 	urlMapping := URLMapping{ShortKey: shortKey, OriginalURL: originalURL}
-	db.Create(&urlMapping)
+	result := s.db.Create(&urlMapping)
+	return result.Error
 }
 
-func GetOriginalURL(shortKey string) string {
-	mutex.Lock()
-	defer mutex.Unlock()
-
+func (s *GormStorage) GetOriginalURL(shortKey string) (string, error) {
 	var urlMapping URLMapping
-	result := db.First(&urlMapping, "short_key = ?", shortKey)
+	result := s.db.First(&urlMapping, "short_key = ?", shortKey)
 	if result.Error != nil {
-		return ""
+		return "", result.Error
 	}
-	return urlMapping.OriginalURL
+	return urlMapping.OriginalURL, nil
 }
