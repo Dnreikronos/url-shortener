@@ -31,7 +31,7 @@ func main() {
 		originalURL := shortener.ExpandURL(*expand)
 		if originalURL != "" {
 
-			fmt.Printf("Original URL:", originalURL)
+			fmt.Print("Original URL:", originalURL)
 		} else {
 			fmt.Println("Shortened URL not foud")
 		}
