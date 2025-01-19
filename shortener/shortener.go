@@ -11,6 +11,11 @@ func ShortenURL(url string) string {
 type URLShortener struct {
 	storage storage.Storage
 }
+
+func NewURLShortener(storage storage.Storage) *URLShortener {
+	return &URLShortener{storage: storage}
+}
+
 	hash := hashURL(url)
 	shortKey := fmt.Sprintf("%d", hash)
 
