@@ -7,7 +7,6 @@ import (
 	"github.com/Dnreikronos/url-shortener/storage"
 )
 
-func ShortenURL(url string) string {
 type URLShortener struct {
 	storage storage.Storage
 }
@@ -16,11 +15,15 @@ func NewURLShortener(storage storage.Storage) *URLShortener {
 	return &URLShortener{storage: storage}
 }
 
+func (us *URLShortener) ShortenURL(url string) (string, error) {
 	hash := hashURL(url)
 	shortKey := fmt.Sprintf("%d", hash)
 
-	storage.SaveURL(shortKey, url)
-	return shortKey
+	err := us.storage.SaveURL(shortKey, url)
+	if err != nil {
+		return "", err
+	}
+	return shortKey, nil
 }
 
 func ExpandURL(shortenedURL string) string {
