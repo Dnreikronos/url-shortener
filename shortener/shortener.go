@@ -8,6 +8,9 @@ import (
 )
 
 func ShortenURL(url string) string {
+type URLShortener struct {
+	storage storage.Storage
+}
 	hash := hashURL(url)
 	shortKey := fmt.Sprintf("%d", hash)
 
