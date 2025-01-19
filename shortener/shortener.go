@@ -26,8 +26,8 @@ func (us *URLShortener) ShortenURL(url string) (string, error) {
 	return shortKey, nil
 }
 
-func ExpandURL(shortenedURL string) string {
-	return storage.GetOriginalURL(shortenedURL)
+func (us *URLShortener) ExpandURL(shortenedURL string) (string, error) {
+	return us.storage.GetOriginalURL(shortenedURL)
 }
 
 func hashURL(url string) uint32 {
