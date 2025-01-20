@@ -22,10 +22,13 @@ func main() {
 		log.Fatalf("Failed to initialize storage: %v", err)
 	}
 
-	flag.Parse()
+	urlShortener := shortener.NewURLShortener(stor)
 
-	if *shorten != "" {
-		shortenedURL := shortener.ShortenURL(*shorten)
+	if *shortenFlag != "" {
+		shortenedURL, err := urlShortener.ShortenURL(*shortenFlag)
+		if err != nil {
+			log.Fatalf("Error shortening URL: %v", err)
+		}
 		fmt.Println("Shortened URL:", shortenedURL)
 		return
 	}
