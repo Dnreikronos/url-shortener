@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/Dnreikronos/url-shortener/shortener"
+	"github.com/Dnreikronos/url-shortener/storage"
 )
 
 
