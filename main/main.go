@@ -17,6 +17,10 @@ func main() {
 	expandFlag := flag.String("expand", "", "Shortened URL to expand")
 	flag.Parse()
 
+	stor, err := storage.NewGormStorage()
+	if err != nil {
+		log.Fatalf("Failed to initialize storage: %v", err)
+	}
 
 	flag.Parse()
 
