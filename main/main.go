@@ -30,14 +30,13 @@ func main() {
 		return
 	}
 
-	if *expand != "" {
-		originalURL := shortener.ExpandURL(*expand)
-		if originalURL != "" {
-
-			fmt.Print("Original URL:", originalURL)
-		} else {
-			fmt.Println("Shortened URL not foud")
+	if *expandFlag != "" {
+		originalURL, err := urlShortener.ExpandURL(*expandFlag)
+		if err != nil {
+			fmt.Println("Error expanding URL or URL not found.")
+			return
 		}
+		fmt.Println("Original URL:", originalURL)
 		return
 	}
 
