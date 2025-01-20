@@ -10,8 +10,6 @@ import (
 	"github.com/Dnreikronos/url-shortener/storage"
 )
 
-
-
 func main() {
 	shortenFlag := flag.String("shorten", "", "URL to shorten")
 	expandFlag := flag.String("expand", "", "Shortened URL to expand")
@@ -51,4 +49,3 @@ func printUsage() {
 	flag.PrintDefaults()
 	os.Exit(1)
 }
-
