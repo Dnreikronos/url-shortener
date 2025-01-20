@@ -41,6 +41,10 @@ func main() {
 		return
 	}
 
+	printUsage()
+}
+
+func printUsage() {
 	fmt.Println("Usage:")
 	flag.PrintDefaults()
 	os.Exit(1)
