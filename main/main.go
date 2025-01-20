@@ -4,15 +4,11 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"sync"
 
 	"github.com/Dnreikronos/url-shortener/shortener"
 )
 
-var (
-	urlStore = make(map[string]string)
-	mutex    = &sync.Mutex{}
-)
+
 
 func main() {
 
