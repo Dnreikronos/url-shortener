@@ -13,9 +13,10 @@ import (
 
 
 func main() {
+	shortenFlag := flag.String("shorten", "", "URL to shorten")
+	expandFlag := flag.String("expand", "", "Shortened URL to expand")
+	flag.Parse()
 
-	shorten := flag.String("Shorten", "", "Url to shorten")
-	expand := flag.String("Expand", "", "Shortened URL to Expand")
 
 	flag.Parse()
 
