@@ -47,5 +47,17 @@ func TestExpandURL(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotEmpty(t, "http://example.com", originalURL)
 	mockStorage.AssertCalled(t, "GetOriginalURL", "123456")
+}
 
+func TestExpandURL_NotFound(t *testing.T) {
+	mockStorage := new(MockStorage)
+	shortener := shortener.NewURLShortener(mockStorage)
+
+	mockStorage.On("GetOriginalURL", "123456").Return("", errors.New("record not found"))
+
+	originalURL, err := shortener.ExpandURL("123456")
+
+	assert.Error(t, err)
+	assert.Empty(t, originalURL)
+	mockStorage.AssertCalled(t, "GetOriginalURL", "123456")
 }
