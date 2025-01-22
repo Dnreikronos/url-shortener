@@ -22,3 +22,15 @@ func (m *MockStorage) GetOriginalURL(shortKey string) (string, error) {
 	return args.String(0), args.Error(1)
 }
 
+func TestShortenURL(t *testing.T) {
+	mockStorage := new(MockStorage)
+	shortener := shortener.NewURLShortener(mockStorage)
+
+	mockStorage.On("SaveURL", mock.Anything, "https://example.com").Return(nil)
+
+	shortKey, err := shortener.ShortenURL("https://example.com")
+
+	assert.NoError(t, err)
+	assert.NotEmpty(t, shortKey)
+	mockStorage.AssertCalled(t, "SaveURL", mock.Anything, "https://example.com")
+}
