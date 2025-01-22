@@ -34,3 +34,17 @@ func TestShortenURL(t *testing.T) {
 	assert.NotEmpty(t, shortKey)
 	mockStorage.AssertCalled(t, "SaveURL", mock.Anything, "https://example.com")
 }
+
+func TestExpandURL(t *testing.T) {
+	mockStorage := new(MockStorage)
+	shortener := shortener.NewURLShortener(mockStorage)
+
+	mockStorage.On("GetOriginalURL", "123456").Return("https://example.com", nil)
+
+	originalURL, err := shortener.ExpandURL("123456")
+
+	assert.NoError(t, err)
+	assert.NotEmpty(t, "http://example.com", originalURL)
+	mockStorage.AssertCalled(t, "GetOriginalURL", "123456")
+
+}
